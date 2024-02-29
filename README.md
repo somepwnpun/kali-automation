@@ -7,6 +7,11 @@ It uses the prebuilt kalilinux/rolling box from vagrant cloud and applies custom
 ## How to use
 
 ### Create an Ansible Vault
+
+Start off by creating a simple .yml file that defines a `user_password` variable, thereby setting your chosen password.
+Afterwards, simply encrypt this file by running `ansible-vault encrypt <your_secrets_file>.
+You will be prompted to choose a vault password, ansible will ask for this password when running the configuration script.
+
 ### Adjust variables
 
 In `vars.yml` you can adjust your desired keyboard layout and specify a folder for installing tools.
