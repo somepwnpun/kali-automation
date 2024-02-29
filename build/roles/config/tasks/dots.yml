@@ -1,0 +1,38 @@
+---
+# TODO: Opportunity for futher customization
+# - name: Add pywal
+#   community.general.pipx:
+#     name: pywal
+#     state: present
+#   become: true
+#   become_user: "{{ username | default('vagrant')}}"
+#   tags: rice 
+
+# - name: pipx ensurepath
+#   shell: pipx ensurepath
+#   become: true
+#   become_user: "{{ username | default('vagrant')}}"
+
+# - name: Add imagemagic dependency
+#   apt: 
+#     pkg: imagemagick
+#     state: present
+
+# - name: Run pywal
+#   shell:
+#     cmd: wal -i /usr/share/backgrounds/xfce/xfce-leaves.svg && wal -R
+#   become: true
+#   tags: rice
+
+# - name: Add pywal to .zshrc
+#   lineinfile:
+#     path: "/home/{{ username | default('vagrant')}}/.zshrc"
+#     line: "wal -R"
+#     insertafter: EOF
+#     state: present
+#   become: true
+#   become_user: "{{ username | default('vagrant')}}"
+#   tags: rice
+
+
+# for genmon: sh -c "ifconfig eth0 | grep -w inet | awk '{ print $2}'"

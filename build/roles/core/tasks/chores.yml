@@ -1,0 +1,86 @@
+---
+- name: Update the apt cache
+  apt: 
+    update_cache: yes
+  become: true
+  tags: dependency
+
+# - name: Upgrade kali
+#   apt:
+#     upgrade: yes
+#   become: true
+#   tags: dependency
+
+- name: Create Tools Destination Folder
+  file:
+    path: "{{ tools_destination_folder | default('$HOME/tools') }}"
+    state: directory
+    owner: "{{ username }}"
+  become_user: "{{ username | default('vagrant')}}"
+  tags: dependency
+
+- name: Change password
+  user:
+    name: "{{ username | default('vagrant')}}"
+    password: "{{ user_password | password_hash('sha512')}}"
+    state: present
+    createhome: yes
+    groups: sudo
+    append: true
+  become: true
+  no_log: true
+  tags: dependecy
+
+- name: Install pipx
+  apt:
+    name: pipx
+  become: true
+  tags: web, cloud, dependency
+
+- name: pipx ensurepath
+  shell: 
+    cmd: pipx ensurepath
+  become_user: "{{ username | default('vagrant')}}"
+  tags: web, cloud, dependency
+
+- name: Install seclists
+  apt: 
+    name: seclists
+    state: latest
+  become: true
+  tags: web, dependency
+
+- name: Install fzf
+  apt:
+    name: fzf
+    state: latest
+  become: true
+  tags: dependency
+
+- name: Install tmux
+  apt:  
+    name: tmux
+    state: latest
+  become: true
+  tags: dependency
+
+- name: Set Keyboard
+  shell: |
+    export DISPLAY=:0.0
+    setxkbmap -layout {{keyboard_layout}}
+  become: true
+  become_user: "{{ username | default('vagrant')}}"
+  tags: dependency
+  
+- name: Set Keyboard
+  lineinfile:
+    path: /etc/default/keyboard
+    regexp: '^XKBLAYOUT='
+    line: 'XKBLAYOUT="{{keyboard_layout}}"'
+  become: true
+
+- name: Reload keyboard configuration
+  systemd:
+    name: keyboard-setup.service
+    state: restarted
+  become: true

@@ -1,0 +1,8 @@
+username : "vagrant"
+tools_destination_folder: "/home/{{ username }}/Tools"
+keyboard_layout: "de"
+
+#TODO: Implement this as customizable plugin list
+# firefox_plugins:
+#   - "foxyproxy-standard"
+#   - "wappalyzer"
