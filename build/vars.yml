@@ -1,6 +1,8 @@
 username : "vagrant"
 tools_destination_folder: "/home/{{ username }}/Tools"
 keyboard_layout: "de"
+config_system_timezone: 'Europe/Berlin'
+
 
 #TODO: Implement this as customizable plugin list
 # firefox_plugins:

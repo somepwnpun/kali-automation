@@ -2,7 +2,8 @@
 - name: Update the apt cache
   apt: 
     update_cache: yes
-  become: true
+    cache_valid_time: 86400
+  #become: true
   tags: dependency
 
 # - name: Upgrade kali
@@ -10,6 +11,16 @@
 #     upgrade: yes
 #   become: true
 #   tags: dependency
+
+# - name: Update packages
+#   apt:
+#     upgrade: safe
+#     cache_valid_time: 86400
+
+# - name: Update packages to the latest version
+#   apt:
+#     upgrade: dist
+#     cache_valid_time: 86400
 
 - name: Create Tools Destination Folder
   file:
@@ -64,23 +75,35 @@
   become: true
   tags: dependency
 
-- name: Set Keyboard
-  shell: |
-    export DISPLAY=:0.0
-    setxkbmap -layout {{keyboard_layout}}
-  become: true
-  become_user: "{{ username | default('vagrant')}}"
-  tags: dependency
+- name: Set timezone to {{ config_system_timezone }}
+  timezone:
+    name: "{{ config_system_timezone }}"
+
+# - name: Set Keyboard
+#   shell: |
+#     export DISPLAY=:0.0
+#     setxkbmap -layout {{keyboard_layout}}
+#   become: true
+#   become_user: "{{ username | default('vagrant')}}"
+#   tags: dependency
   
 - name: Set Keyboard
   lineinfile:
     path: /etc/default/keyboard
-    regexp: '^XKBLAYOUT='
-    line: 'XKBLAYOUT="{{keyboard_layout}}"'
-  become: true
+    regexp: '^XKBLAYOUT="us"'
+    line: XKBLAYOUT="{{keyboard_layout}}"
+  #become: true
 
-- name: Reload keyboard configuration
-  systemd:
-    name: keyboard-setup.service
-    state: restarted
-  become: true
+# - name: Reload keyboard configuration
+#   systemd:
+#     name: keyboard-setup.service
+#     state: restarted
+#   become: true
+
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes
