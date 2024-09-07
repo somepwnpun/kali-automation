@@ -39,7 +39,7 @@
     cmd: |
       mkdir steampipe
       cd steampipe
-      /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/turbot/steampipe/main/install.sh)"
+      sudo /bin/sh -c "$(curl -fsSL https://steampipe.io/install/steampipe.sh)"
   become: true
   #become_user: "{{ username | default('vagrant')}}"
   tags: cloud
