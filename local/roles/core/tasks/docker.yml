@@ -1,0 +1,15 @@
+---
+- name: Installing Docker
+  apt: 
+    pkg: docker.io
+    state: latest
+  become: true
+  tags: dependency, docker
+
+- name: Adding User to docker group
+  user:
+    name: "{{ username }}"
+    groups: docker
+    append: true
+  become: true
+  tags: docker, dependency

@@ -25,11 +25,29 @@
   become: true
   become_user: root
 
-# - name: Upgrade kali
-#   apt:
-#     upgrade: yes
-#   become: true
-#   tags: dependency
+- name: Add Papirus Repo
+  apt_repository:
+    repo: 'ppa:papirus/papirus'
+    state: present
+
+- name: Install Papirus Icons
+  apt:
+    update_cache: true
+    name: papirus-icon-theme
+    state: present
+  become: true
+  tags: rice
+
+- name: Install Powerline10k
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    depth: 1
+    dest: ~/powerlevel10k
+  tags: rice
+
+- name: Create zshrc
+  shell: echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+  tags: rice
 
 - name: Create Tools Destination Folder
   file:

@@ -1,0 +1,39 @@
+---
+- name: Update the apt cache
+  apt: 
+    update_cache: true
+    upgrade: dist
+    autoremove: true
+  environment:
+    DEBIAN_FRONTEND: noninteractive  # Run apt in non-interactive mode
+  become: true
+  become_user: root
+  tags: dependency
+
+- name: Install Core Packages
+  apt:
+    name : "{{ item }}"
+    state: present
+  loop:
+    - curl
+    - git
+    - tmux
+    - gobuster
+    - pipx
+    - seclists
+    - fzf
+  become: true
+  become_user: root
+
+- name: Create Tools Destination Folder
+  file:
+    path: "{{ tools_destination_folder | default('$HOME/tools') }}"
+    state: directory
+    owner: "{{ username }}"
+  tags: dependency
+
+- name: pipx ensurepath
+  shell: 
+    cmd: pipx ensurepath
+  become_user: "{{ username | default('vagrant')}}"
+  tags: web, cloud, dependency

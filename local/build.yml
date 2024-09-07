@@ -1,0 +1,19 @@
+- name: "Setup Custom Kali VM"
+  become_method: sudo
+  hosts: all
+  vars_files:
+  - secrets.yml
+  - vars.yml
+
+  roles:  
+    - role: "roles/core"
+    - role: "roles/tools"
+    - role: "roles/config"
+    - role: "roles/browser"
+    - role: gantsign.visual-studio-code
+      users: 
+        - username: "{{ username }}"
+          visual_studio_code_extensions:
+            - ms-python.python 
+            - ms-vscode.cpptools
+            - ms-azuretools.vscode-docker

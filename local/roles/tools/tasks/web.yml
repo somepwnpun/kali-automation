@@ -1,0 +1,49 @@
+---
+- name: Install npm
+  apt:
+    name: npm
+    state: latest
+  become: true 
+  #become_user: "{{ username | default('vagrant')}}"
+  tags: web, dependency
+
+# - name: Install gobuster 
+#   apt: 
+#     name: gobuster
+#     state: latest
+#   become: true
+#   #become_user: "{{ username | default('vagrant')}}"
+#   tags: web
+
+# - name: Install wfuzz
+#   community.general.pipx:
+#     name: wfuzz
+#     state: latest
+#   #become: true
+#   become_user: "{{ username | default('vagrant')}}"
+#   tags: web
+
+- name: Download and Unarchive Postman
+  unarchive:
+    src: https://dl.pstmn.io/download/latest/linux_64
+    dest: "/opt"
+    remote_src: yes
+  become: true
+  #become_user: "{{ username | default('vagrant')}}"
+  tags: web
+
+- name: Symlink Postman
+  file:
+    src: /opt/Postman/Postman
+    dest: /usr/local/bin/postman
+    state: link
+  become: true
+  #become_user: "{{ username | default('vagrant')}}"
+  tags: web
+
+- name: Installing kube-hunter Tool
+  community.general.pipx:
+    name: kube-hunter
+  #become: true
+  become_user: "{{ username | default('vagrant')}}"
+  tags: docker, web

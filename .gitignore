@@ -1,2 +1,3 @@
 build/secrets.yml
 .vagrant
+vaultpass.txt
