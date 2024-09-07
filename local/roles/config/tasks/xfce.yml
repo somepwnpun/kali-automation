@@ -8,7 +8,7 @@
 #   become_user: "{{ username }}"
 #   environment:
 #     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-#   tags: xfce
+#   tags: rice
 
 - name: Open Terminal with Super + Return
   xfconf:
@@ -20,7 +20,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Open Thunar with Super + E
   xfconf:
@@ -32,7 +32,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: App Finder Super + D
   xfconf:
@@ -44,7 +44,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Quit Window Super + Q
   xfconf:
@@ -56,7 +56,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Remove Workspace 1
   xfconf:
@@ -68,7 +68,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Remove Workspace 2
   xfconf:
@@ -80,7 +80,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Remove Workspace 3
   xfconf:
@@ -92,7 +92,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Remove Workspace 4
   xfconf:
@@ -104,7 +104,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Workspace 1
   xfconf:
@@ -116,7 +116,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Workspace 2
   xfconf:
@@ -128,7 +128,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Workspace 3
   xfconf:
@@ -140,7 +140,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Workspace 4
   xfconf:
@@ -152,7 +152,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Move to Workspace 1
   xfconf:
@@ -164,7 +164,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Move to Workspace 2
   xfconf:
@@ -176,7 +176,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Move to Workspace 3
   xfconf:
@@ -188,7 +188,7 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Move to Workspace 4
   xfconf:
@@ -200,78 +200,43 @@
   become_user: "{{ username }}"
   environment:
     DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
-  tags: xfce
+  tags: rice
 
 - name: Clone XFCE rice repository
   git:
-    repo: 'https://github.com/yourusername/xfce-rice.git'
-    dest: ~/xfce-rice
-    version: main  # or specify the branch if different
+    repo: 'https://github.com/somepwnpun/kali-rice.git'
+    dest: ~/kali-rice
+    version: main
+  tags: rice
 
 - name: Copy XFCE configuration files
   copy:
-    src: ~/xfce-rice/.config/xfce4/
+    src: ~/kali-rice/.config/xfce4/
     dest: ~/.config/xfce4/
     owner: "{{ username }}"
     mode: 0755
     remote_src: yes
-
-- name: Copy GTK3 configuration
-  copy:
-    src: ~/xfce-rice/.config/gtk-3.0/
-    dest: ~/.config/gtk-3.0/
-    owner: "{{ username }}"
-    mode: 0755
-    remote_src: yes
-
-- name: Copy GTK2 configuration
-  copy:
-    src: ~/xfce-rice/.config/gtk-2.0/
-    dest: ~/.config/gtk-2.0/
-    owner: "{{ username }}"
-    mode: 0755
-    remote_src: yes
-
-- name: Copy Thunar configuration
-  copy:
-    src: ~/xfce-rice/.config/Thunar/
-    dest: ~/.config/Thunar/
-    owner: "{{ username }}"
-    mode: 0755
-    remote_src: yes
-
-- name: Copy XFCE Terminal configuration
-  copy:
-    src: ~/xfce-rice/.config/xfce4-terminal/
-    dest: ~/.config/xfce4-terminal/
-    owner: "{{ username }}"
-    mode: 0755
-    remote_src: yes
+  tags: rice
 
 - name: Copy themes
   copy:
-    src: ~/xfce-rice/.themes/
+    src: ~/kali-rice/.themes/
     dest: ~/.themes/
     owner: "{{ username }}"
     mode: 0755
     remote_src: yes
-
-- name: Copy icons
-  copy:
-    src: ~/xfce-rice/.icons/
-    dest: ~/.icons/
-    owner: "{{ username }}"
-    mode: 0755
-    remote_src: yes
+  tags: rice
 
 - name: Copy fonts
   copy:
-    src: ~/xfce-rice/.fonts/
+    src: ~/kali-rice/.fonts/
     dest: ~/.fonts/
     owner: "{{ username }}"
     mode: 0755
     remote_src: yes
+  tags: rice
 
 - name: Restart XFCE Panel
   shell: xfce4-panel -r
+  tags: rice
 

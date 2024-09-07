@@ -7,14 +7,6 @@
   #become_user: "{{ username | default('vagrant')}}"
   tags: web, dependency
 
-# - name: Install gobuster 
-#   apt: 
-#     name: gobuster
-#     state: latest
-#   become: true
-#   #become_user: "{{ username | default('vagrant')}}"
-#   tags: web
-
 # - name: Install wfuzz
 #   community.general.pipx:
 #     name: wfuzz
