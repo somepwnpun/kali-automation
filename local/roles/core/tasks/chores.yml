@@ -22,9 +22,6 @@
     - pipx
     - seclists
     - fzf
-    - build-essential
-    - dkms
-    - linux-headers-$(uname -r)
   become: true
   become_user: root
 

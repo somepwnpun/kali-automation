@@ -33,19 +33,17 @@
 #   become: true
 #   become_user: "{{ username | default('vagrant')}}"
 #   tags: rice
-- name: Add Papirus Repo
-  apt_repository:
-    repo: 'ppa:papirus/papirus'
-    state: present
-  tags: rice
+# - name: Add Papirus Repo
+#   shell: sudo add-apt-repository ppa:papirus/papirus
+#   tags: rice
   
-- name: Install Papirus Icons
-  apt:
-    update_cache: true
-    name: papirus-icon-theme
-    state: present
-  become: true
-  tags: rice
+# - name: Install Papirus Icons
+#   apt:
+#     update_cache: true
+#     name: papirus-icon-theme
+#     state: present
+#   become: true
+#   tags: rice
 
 - name: Install Powerline10k
   git:

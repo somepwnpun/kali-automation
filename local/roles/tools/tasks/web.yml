@@ -33,9 +33,3 @@
   #become_user: "{{ username | default('vagrant')}}"
   tags: web
 
-- name: Installing kube-hunter Tool
-  community.general.pipx:
-    name: kube-hunter
-  #become: true
-  become_user: "{{ username | default('vagrant')}}"
-  tags: docker, web

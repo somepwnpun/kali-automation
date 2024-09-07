@@ -236,6 +236,15 @@
     remote_src: yes
   tags: rice
 
+- name: Copy icons
+  copy:
+    src: ~/kali-rice/.icons/
+    dest: ~/.icons/
+    owner: "{{ username }}"
+    mode: 0755
+    remote_src: yes
+  tags: rice
+
 - name: Restart XFCE Panel
   shell: xfce4-panel -r
   tags: rice

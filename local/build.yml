@@ -1,6 +1,7 @@
 - name: "Setup Custom Kali VM"
   become_method: sudo
-  hosts: all
+  hosts: localhost
+  connection: local
   vars_files:
   - secrets.yml
   - vars.yml

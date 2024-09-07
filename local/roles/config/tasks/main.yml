@@ -1,2 +1,3 @@
 ---
 - ansible.builtin.include_tasks: xfce.yml
+- ansible.builtin.include_tasks: dots.yml

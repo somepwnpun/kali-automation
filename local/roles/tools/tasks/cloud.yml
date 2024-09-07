@@ -87,3 +87,10 @@
   become: true
   #become_user: "{{ username | default('vagrant')}}"
   tags: cloud
+
+- name: Installing kube-hunter Tool
+  community.general.pipx:
+    name: kube-hunter
+  #become: true
+  become_user: "{{ username | default('vagrant')}}"
+  tags: docker, web
