@@ -5,7 +5,7 @@
     state: latest
     update_cache: true
   become: true
-  #become_user: "{{ username | default('vagrant')}}"
+  become_user: "{{ username }}"
   tags: binex
 
 - name: Installing ghidra
@@ -14,7 +14,7 @@
     state: latest
     update_cache: true
   become: true
-  #become_user: "{{ username | default('vagrant')}}"
+  become_user: "{{ username }}"
   tags: binex
 
 - name: Installing gdb
@@ -23,7 +23,7 @@
     state: latest
     update_cache: true
   become: true
-  #become_user: "{{ username | default('vagrant')}}"
+  become_user: "{{ username }}"
   tags: binex
 
 - name: Installing gef for gdb

@@ -22,6 +22,8 @@
     - pipx
     - seclists
     - fzf
+    - alacritty
+    - ffuf
   become: true
   become_user: root
 

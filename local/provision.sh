@@ -10,7 +10,7 @@ echo "Installing Ansible..."
 sudo apt install ansible -y
 
 echo "Installing VBox Guest Addition Dependencies..."
-sudo apt install dkms build-essential linux-headers-$(uname -r)
+sudo apt install dkms build-essential linux-headers-$(uname -r) -y
 
 echo "Installing Ansible Community Plugins..."
 ansible-galaxy install gantsign.visual-studio-code

@@ -24,27 +24,6 @@
 #   become: true
 #   tags: rice
 
-# - name: Add pywal to .zshrc
-#   lineinfile:
-#     path: "/home/{{ username | default('vagrant')}}/.zshrc"
-#     line: "wal -R"
-#     insertafter: EOF
-#     state: present
-#   become: true
-#   become_user: "{{ username | default('vagrant')}}"
-#   tags: rice
-# - name: Add Papirus Repo
-#   shell: sudo add-apt-repository ppa:papirus/papirus
-#   tags: rice
-  
-# - name: Install Papirus Icons
-#   apt:
-#     update_cache: true
-#     name: papirus-icon-theme
-#     state: present
-#   become: true
-#   tags: rice
-
 - name: Install Powerline10k
   git:
     repo: https://github.com/romkatv/powerlevel10k.git
