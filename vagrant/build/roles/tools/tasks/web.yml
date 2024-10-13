@@ -23,27 +23,22 @@
 #   become_user: "{{ username | default('vagrant')}}"
 #   tags: web
 
-- name: Download and Unarchive Postman
-  unarchive:
-    src: https://dl.pstmn.io/download/latest/linux_64
-    dest: "/opt"
-    remote_src: yes
-  become: true
-  #become_user: "{{ username | default('vagrant')}}"
-  tags: web
+- name: Add Insomnia to Apt
+  shell: curl -1sLf 'https://packages.konghq.com/public/insomnia/setup.deb.sh' | sudo -E distro=ubuntu codename=focal bash
 
-- name: Symlink Postman
-  file:
-    src: /opt/Postman/Postman
-    dest: /usr/local/bin/postman
-    state: link
+- name: Install Insomnia
+  apt:
+    name: insomnia 
+    update_cache: true
+  state: present
   become: true
-  #become_user: "{{ username | default('vagrant')}}"
-  tags: web
+  tags: web, api
 
 - name: Installing kube-hunter Tool
   community.general.pipx:
     name: kube-hunter
   #become: true
   become_user: "{{ username | default('vagrant')}}"
-  tags: docker, web
+  tags:
+    - docker
+    - web

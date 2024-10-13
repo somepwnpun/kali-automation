@@ -1,0 +1,84 @@
+{   
+  "variables": {
+    "disk_size": "20480",
+    "kali_iso_checksum": "2ba1abf570ea0685ca4a97dd9c83a65670ca93043ef951f0cd7bbff914fa724a",
+    "kali_iso_url": "https://cdimage.kali.org/kali-2024.3/kali-linux-2024.3-installer-amd64.iso",
+    "password": "kali",
+    "ssh_port": "22",
+    "username": "somepwnpun"
+  },
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><wait>",
+        "install <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "locale=en_US ",
+        "keymap=de ",
+        "hostname=pwnbox  ",
+        "domain= ",
+        "<enter>"
+      ],
+      "type": "virtualbox-iso",
+      "virtualbox_version_file": "",
+      "vm_name": "custom-kali-base-box",
+      "headless": true,
+      "http_directory": "http",
+      "guest_os_type": "Debian_64",
+      "iso_checksum": "sha256:{{user `kali_iso_checksum`}}",
+      "iso_url": "{{user `kali_iso_url`}}",
+      "guest_additions_mode": "disable",
+
+      "ssh_username": "{{user `username`}}",
+      "ssh_password": "{{user `password`}}",
+      "ssh_port": "{{user `ssh_port`}}",
+      "ssh_timeout": "30m",
+
+      "disk_size": "{{user `disk_size`}}",
+      "gfx_accelerate_3d": true,
+      "output_directory": "output-virtualbox-kali",
+      "shutdown_command": "echo '{{user `password`}}' | sudo -S shutdown -P now",
+      "vboxmanage": [
+        [ "modifyvm", 
+          "{{.Name}}", 
+          "--clipboard-mode", 
+          "bidirectional"
+        ],
+        [ "modifyvm",
+          "{{.Name}}", 
+          "--nat-localhostreachable1", 
+          "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "16384"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "4"
+        ]
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "keep_input_artifact": false,
+      "output": "atrifacts/custom-kali-{{.Provider}}.box",
+      "type": "vagrant",
+      "vagrantfile_template": "Vagrantfile.tpl"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo '{{user `password`}}' | {{.Vars}} sudo -S bash -euxo pipefail '{{.Path}}'",
+      "scripts": [
+        "scripts/vagrant.sh"
+      ]
+    }
+  ]
+} 

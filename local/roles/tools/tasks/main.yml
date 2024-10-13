@@ -1,4 +1,0 @@
----
-- include_tasks: binary.yml 
-- include_tasks: cloud.yml
-- include_tasks: web.yml

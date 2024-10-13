@@ -1,0 +1,12 @@
+- name: Change password
+  user:
+    name: "{{ username | default('vagrant')}}"
+    password: "{{ user_password | password_hash('sha512')}}"
+    state: present
+    createhome: yes
+    groups: sudo
+    append: true
+  no_log: true
+  become: true
+  become_user: root
+  tags: dependecy

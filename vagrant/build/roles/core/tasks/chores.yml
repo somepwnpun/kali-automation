@@ -29,6 +29,10 @@
   apt_repository:
     repo: 'ppa:papirus/papirus'
     state: present
+    # Change for release file, as its only provided for Ubuntu
+    codename: jammy
+  become: true
+  tags: rice
 
 - name: Install Papirus Icons
   apt:
@@ -56,18 +60,18 @@
     owner: "{{ username }}"
   tags: dependency
 
-- name: Change password
-  user:
-    name: "{{ username | default('vagrant')}}"
-    password: "{{ user_password | password_hash('sha512')}}"
-    state: present
-    createhome: yes
-    groups: sudo
-    append: true
-  no_log: true
-  become: true
-  become_user: root
-  tags: dependecy
+# - name: Change password
+#   user:
+#     name: "{{ username | default('vagrant')}}"
+#     password: "{{ user_password | password_hash('sha512')}}"
+#     state: present
+#     createhome: yes
+#     groups: sudo
+#     append: true
+#   no_log: true
+#   become: true
+#   become_user: root
+#   tags: dependecy
 
 - name: pipx ensurepath
   shell: 
@@ -83,13 +87,13 @@
 #   become_user: root #"{{ username | default('vagrant')}}"
 #   tags: dependency
   
-- name: Set Keyboard
-  lineinfile:
-    path: /etc/default/keyboard
-    regexp: '^XKBLAYOUT='
-    line: 'XKBLAYOUT="{{keyboard_layout}}"'
-  become_user: root #"{{ username | default('vagrant')}}"
-  become: true
+# - name: Set Keyboard
+#   lineinfile:
+#     path: /etc/default/keyboard
+#     regexp: '^XKBLAYOUT='
+#     line: 'XKBLAYOUT="{{keyboard_layout}}"'
+#   become_user: root #"{{ username | default('vagrant')}}"
+#   become: true
 
 # - name: Reload keyboard configuration
 #   systemd:

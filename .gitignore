@@ -1,0 +1,4 @@
+vagrant/build/secrets.yml
+.vagrant
+vagrant/vaultpass.txt
+packer/artifacts/*
